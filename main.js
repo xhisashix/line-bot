@@ -6,13 +6,7 @@ const axios = require('axios')
 const client = new line.Client({
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
 })
-
 const userId = process.env.USER_ID
-
-const message = {
-  type: 'text',
-  text: 'Hello World',
-}
 
 function sendMessage(message) {
   client
