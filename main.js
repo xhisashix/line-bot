@@ -43,6 +43,26 @@ function sendBot(data) {
 }
 
 /**
+ * create of message to Bot
+ * @param {*} data
+ */
+function sendBotZenn(data) {
+  const message = data
+  const sendMessages = []
+  for (let i = 0; i < 5; i++) {
+    sendMessages.push(message[i].title + '\n' + 'https://zenn.dev/' + message[i].path + '\n')
+  }
+
+  const messageString = []
+  messageString.push({
+    type: 'text',
+    text: "【Zennのトレンド記事】\n" + sendMessages.join('\n'),
+  })
+
+  sendMessage(messageString)
+}
+
+/**
  * get data from Qiita
  */
 async function getQiita() {
@@ -55,4 +75,18 @@ async function getQiita() {
   }
 }
 
+/**
+ * get data from Zenn
+ */
+async function getZenn() {
+  const URL = 'https://zenn-api.vercel.app/api/trendTech'
+  try {
+    const response = await axios.get(URL)
+    sendBotZenn(response.data)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 getQiita()
+getZenn()
