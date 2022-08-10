@@ -1,5 +1,4 @@
 require('dotenv').config()
-const request = require('request')
 const line = require('@line/bot-sdk')
 const axios = require('axios')
 
@@ -8,6 +7,10 @@ const client = new line.Client({
 })
 const userId = process.env.USER_ID
 
+/**
+ * send message to LINE
+ * @param {*} message
+ */
 function sendMessage(message) {
   client
     .pushMessage(userId, message)
@@ -19,18 +22,29 @@ function sendMessage(message) {
     })
 }
 
+/**
+ * create of message to Bot
+ * @param {*} data
+ */
 function sendBot(data) {
   const message = data
   const sendMessages = []
-  for (let i = 0; i < 4; i++) {
-    sendMessages.push({
-      type: 'text',
-      text: message[i].node.title + '\n' + message[i].node.linkUrl,
-    })
+  for (let i = 0; i < 5; i++) {
+    sendMessages.push(message[i].node.title + '\n' + message[i].node.linkUrl+ '\n')
   }
-  sendMessage(sendMessages)
+
+  const messageString = []
+  messageString.push({
+    type: 'text',
+    text: "【Qiitaのトレンド記事】\n" + sendMessages.join('\n'),
+  })
+
+  sendMessage(messageString)
 }
 
+/**
+ * get data from Qiita
+ */
 async function getQiita() {
   const URL = 'https://qiita-api.vercel.app/api/trend'
   try {
