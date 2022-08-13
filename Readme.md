@@ -6,7 +6,7 @@ This project is sending Zenn and Qiita trend posts in LINE Bot.
 
 Sending Zenn and Qiita trend posts in every Monday.
 
-### Used
+### Used Languages and Tools
 
 - node.js
 - GitHub actions
